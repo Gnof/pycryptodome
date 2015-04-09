@@ -87,6 +87,11 @@ class BLAKE2b_Hash(object):
         #: The size of the resulting hash in bytes.
         self.digest_size = digest_bytes
 
+        # See https://tools.ietf.org/html/draft-saarinen-blake2-02
+        oids = { 160:"20", 256:"32", 384:"48", 512:"64" }
+        if digest_bytes in (20, 32, 48, 64):
+            self.oid = "1.3.6.1.4.1.1722.12.2.1." + str(digest_bytes)
+
         expect_byte_string(key)
 
         state = VoidPointer()
